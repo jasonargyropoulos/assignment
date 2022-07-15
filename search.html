@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Search {%  endblock %}
+
+
+{% block content %}
+
+<div class="container px-4 px-lg-5 mt-5">
+        
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            
+            {% if searchproduct|length < 1 %}
+            <p>Your search - <b>{{query}}</b> did not match any documents.
+
+                Suggestions:
+                
+                Make sure that all words are spelled correctly.
+                Try different keywords.
+               
+                </p>
+            {% endif %}
+            {% for x in searchproduct  %}
+            <div class="col mb-5">
+         
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{x.image.url}}" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{x.name}}</h5>
+                            <!-- Product price-->
+                            {{x.price}}<br>
+                            <small class=""><a href="{% url 'category' x.subcategory %}">{{x.subcategory}}</a></small>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+              <small><a href="{% url 'product' x.id %}">View Product</a></small>
+
+                    
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+</ol>
+</div>
+   
+
+{% endblock %}
